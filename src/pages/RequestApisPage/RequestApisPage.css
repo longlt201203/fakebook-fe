@@ -1,0 +1,63 @@
+/* RequestApiStyles.css */
+.request-apis-container {
+    font-family: Arial, sans-serif;
+    color: #333;
+    padding: 20px;
+}
+
+.request-apis-container h1,
+.request-apis-container h2,
+.request-apis-container h3,
+.request-apis-container h4,
+.request-apis-container h5 {
+    margin: 10px 0;
+}
+
+.request-apis-container h1 {
+    color: #007bff;
+}
+
+.request-apis-container h2 {
+    color: #0056b3;
+}
+
+.request-apis-container h3 {
+    color: #004085;
+}
+
+.request-apis-container p,
+.request-apis-container pre {
+    background-color: #f8f9fa;
+    border-left: 3px solid #007bff;
+    padding: 10px;
+    margin: 10px 0;
+    white-space: pre-wrap;
+    /* Respect the formatting of JSON examples */
+    word-wrap: break-word;
+}
+
+.method {
+    display: inline-block;
+    padding: 2px 8px;
+    background-color: #28a745;
+    color: #fff;
+    border-radius: 4px;
+    margin-right: 5px;
+}
+
+.new-indicator {
+    display: inline-block;
+    padding: 2px 8px;
+    background-color: #dc3545;
+    color: #fff;
+    border-radius: 4px;
+    font-size: 0.8em;
+    margin-left: 5px;
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    background-color: #dee2e6;
+    margin: 20px 0;
+}
