@@ -1,5 +1,6 @@
 import { CreateAccountRequestDto } from "../dto/accounts/requests/create-account-request.dto";
 import { AccountResponseDto } from "../dto/accounts/responses/account-response.dto";
+import { Env } from "../utils/Env";
 import { AxiosService } from "./axios.service";
 
 export class AccountsService {
@@ -17,7 +18,7 @@ export class AccountsService {
     private readonly axiosService: AxiosService;
     
     private constructor() {
-        this.axiosService = new AxiosService("http://localhost:3000"+AccountsService.BASE_PATH);
+        this.axiosService = new AxiosService(Env.API_URL+AccountsService.BASE_PATH);
     }
 
     async createAccount(dto: CreateAccountRequestDto) {

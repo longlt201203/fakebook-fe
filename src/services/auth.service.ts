@@ -1,6 +1,7 @@
 import { AccountResponseDto } from "../dto/accounts/responses/account-response.dto";
 import { LoginWithUsernameAndPasswordRequestDto } from "../dto/auth/requests/login-with-username-and-password-request.dto";
 import { AccessTokenResponseDto } from "../dto/auth/responses/access-token-response.dto";
+import { Env } from "../utils/Env";
 import { AxiosService } from "./axios.service";
 
 export class AuthService {
@@ -19,7 +20,7 @@ export class AuthService {
     private readonly axiosService: AxiosService;
     
     private constructor() {
-        this.axiosService = new AxiosService("http://localhost:3000"+AuthService.BASE_PATH);
+        this.axiosService = new AxiosService(Env.API_URL+AuthService.BASE_PATH);
     }
 
     async loginWithUsernameAndPassword(dto: LoginWithUsernameAndPasswordRequestDto) {
