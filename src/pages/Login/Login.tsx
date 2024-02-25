@@ -3,6 +3,7 @@ import './Login.css';
 import { AuthService } from '../../services/auth.service';
 import { AxiosError } from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
+import { CredentialResponse, GoogleLogin } from '@react-oauth/google';
 
 const Login: React.FC = () => {
   const authService = AuthService.getInstance();
@@ -20,19 +21,39 @@ const Login: React.FC = () => {
       username: username,
       password: password
     })
-    .then((data) => {
-      window.localStorage.setItem("accessToken", data.accessToken);
-      navigate('/profile');
-    })
-    .catch(err => {
-      if (err instanceof AxiosError) {
-        setErrorMessage(err.response?.data.message);
-      } else {
-        console.log(err);
-        setErrorMessage("Unknow error!");
-      }
-    });
+      .then((data) => {
+        window.localStorage.setItem("accessToken", data.accessToken);
+        navigate('/profile');
+      })
+      .catch(err => {
+        if (err instanceof AxiosError) {
+          setErrorMessage(err.response?.data.message);
+        } else {
+          console.log(err);
+          setErrorMessage("Unknow error!");
+        }
+      });
   };
+
+  const handleGoogleLogin = (credentialResponse: CredentialResponse) => {
+    if (credentialResponse.credential) {
+      authService.loginWithGoogle(credentialResponse.credential)
+        .then((data) => {
+          window.localStorage.setItem("accessToken", data.accessToken);
+          navigate('/profile');
+        })
+        .catch(err => {
+          if (err instanceof AxiosError) {
+            setErrorMessage(err.response?.data.message);
+          } else {
+            console.log(err);
+            setErrorMessage("Unknow error!");
+          }
+        });
+    } else {
+      setErrorMessage("Unknow ID Token!");
+    }
+  }
 
   return (
     <div className="login-container">
@@ -61,6 +82,13 @@ const Login: React.FC = () => {
           </div>
         </div>
       </form>
+      <hr />
+      <GoogleLogin
+        onSuccess={handleGoogleLogin}
+        onError={() => {
+          console.log('login error')
+        }}
+      />
     </div>
   );
 }

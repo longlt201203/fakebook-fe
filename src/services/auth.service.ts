@@ -1,3 +1,4 @@
+import { createSearchParams } from "react-router-dom";
 import { AccountResponseDto } from "../dto/accounts/responses/account-response.dto";
 import { LoginWithUsernameAndPasswordRequestDto } from "../dto/auth/requests/login-with-username-and-password-request.dto";
 import { AccessTokenResponseDto } from "../dto/auth/responses/access-token-response.dto";
@@ -8,6 +9,7 @@ export class AuthService {
     private static readonly BASE_PATH = "/auth";
     private static readonly LOGIN_WITH_USERNAME_AND_PASSWORD_ENDPOINT = "/login-with-username-and-password";
     private static readonly PROFILE_ENDPOINT = "/profile";
+    private static readonly LOGIN_WITH_GOOGLE_ENDPOINT = "/login-with-google";
 
     private static instance: AuthService;
     static getInstance() {
@@ -18,9 +20,9 @@ export class AuthService {
     }
 
     private readonly axiosService: AxiosService;
-    
+
     private constructor() {
-        this.axiosService = new AxiosService(Env.API_URL+AuthService.BASE_PATH);
+        this.axiosService = new AxiosService(Env.API_URL + AuthService.BASE_PATH);
     }
 
     async loginWithUsernameAndPassword(dto: LoginWithUsernameAndPasswordRequestDto) {
@@ -34,6 +36,15 @@ export class AuthService {
                 Authorization: `Bearer ${accessToken}`
             }
         });
+        return data;
+    }
+
+    async loginWithGoogle(credential: string) {
+        const uri = createSearchParams();
+        uri.set("credential", credential);
+
+        const data = await this.axiosService.get<AccessTokenResponseDto>(AuthService.LOGIN_WITH_GOOGLE_ENDPOINT + "?" + uri.toString());
+
         return data;
     }
 }

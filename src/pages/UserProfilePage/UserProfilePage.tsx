@@ -1,42 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import './UserProfilePage.css';
-import { AuthService } from '../../services/auth.service';
-import { AccountResponseDto } from '../../dto/accounts/responses/account-response.dto';
-import { useNavigate } from 'react-router-dom';
-import { AxiosError } from 'axios';
+import { useCheckProfile } from '../../hooks/useCheckProfile';
 
 const UserProfilePage: React.FC = () => {
-    const authService = AuthService.getInstance();
-
-    const navigate = useNavigate();
-
-  const [userData, setUserData] = useState<AccountResponseDto>({
-    id: "",
-    username: "",
-    password: ""
-  });
-
-  useEffect(() => {
-    const accessToken = window.localStorage.getItem("accessToken");
-    if (!accessToken) {
-        navigate('/');
-    } else {
-        authService.profile(accessToken)
-                    .then((data) => {
-                        setUserData(data);
-                    })
-                    .catch((err) => {
-                        let message = 'Unkown error';
-                        if (err instanceof AxiosError) {
-                            message = err.response?.data.message;
-                        } else {
-                            console.log(err);
-                        }
-                        alert(message);
-                        navigate('/');
-                    })
-    }
-  }, []);
+  const userData = useCheckProfile();
 
   return (
     <div className="user-profile">
