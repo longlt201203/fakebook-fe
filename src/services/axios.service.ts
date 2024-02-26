@@ -14,4 +14,9 @@ export class AxiosService {
         const res = await axios.post<T>(this.baseUrl+path, data, config);
         return res.data;
     }
+
+    async put<T = any>(path: string, data?: any, config?: AxiosRequestConfig<any>) {
+        const res = await axios.put<T>(this.baseUrl+path, data, config);
+        return res.data;
+    }
 }

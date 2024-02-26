@@ -9,7 +9,8 @@ export interface CheckProfileOptions {
     redirect?: string;
 }
 
-export const useCheckProfile = (otps: CheckProfileOptions) => {
+export const useCheckProfile = (otps?: CheckProfileOptions): [AccountResponseDto, React.Dispatch<React.SetStateAction<AccountResponseDto>>, string] => {
+    const accessToken = window.localStorage.getItem("accessToken");
     const navigate = useNavigate();
     const authService = AuthService.getInstance();
 
@@ -21,7 +22,6 @@ export const useCheckProfile = (otps: CheckProfileOptions) => {
     });
 
     useEffect(() => {
-        const accessToken = window.localStorage.getItem("accessToken");
         if (!accessToken) {
             if (!otps?.reverse) {
                 navigate("/");
@@ -45,5 +45,5 @@ export const useCheckProfile = (otps: CheckProfileOptions) => {
                 })
         }
     }, []);
-    return userData;
+    return [userData, setUserData, accessToken ?? ''];
 }
