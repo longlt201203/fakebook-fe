@@ -4,8 +4,12 @@ import { AuthService } from '../../services/auth.service';
 import { AxiosError } from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { CredentialResponse, GoogleLogin } from '@react-oauth/google';
+import { useCheckProfile } from '../../hooks/useCheckProfile';
+import { MainLayout } from '../../layouts/MainLayout';
 
 const Login: React.FC = () => {
+  useCheckProfile({ reverse: true, redirect: "/profile" });
+
   const authService = AuthService.getInstance();
 
   const navigate = useNavigate();
@@ -56,40 +60,42 @@ const Login: React.FC = () => {
   }
 
   return (
-    <div className="login-container">
-      <form className="login-form" onSubmit={handleSubmit}>
-        <img src="logo.png" alt="Fakebook Logo" className="logo" />
-        {errorMessage && <div className="error-message" style={{ color: 'red' }}>{errorMessage}</div>}
-        <input
-          type="text"
-          placeholder="Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <div className="form-footer">
-          <button type="submit">Log In</button>
-          <div className="links">
-            <a href="#">Forgot Password?</a>
-            <Link to={"/register"}>
-              Sign Up
-            </Link>
+    <MainLayout>
+      <div className="login-container">
+        <form className="login-form" onSubmit={handleSubmit}>
+          <img src="logo.png" alt="Fakebook Logo" className="logo" />
+          {errorMessage && <div className="error-message" style={{ color: 'red' }}>{errorMessage}</div>}
+          <input
+            type="text"
+            placeholder="Username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <div className="form-footer">
+            <button type="submit">Log In</button>
+            <div className="links">
+              <a href="#">Forgot Password?</a>
+              <Link to={"/register"}>
+                Sign Up
+              </Link>
+            </div>
           </div>
-        </div>
-      </form>
-      <hr />
-      <GoogleLogin
-        onSuccess={handleGoogleLogin}
-        onError={() => {
-          console.log('login error')
-        }}
-      />
-    </div>
+        </form>
+        <hr />
+        <GoogleLogin
+          onSuccess={handleGoogleLogin}
+          onError={() => {
+            console.log('login error')
+          }}
+        />
+      </div>
+    </MainLayout>
   );
 }
 

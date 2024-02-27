@@ -1,0 +1,107 @@
+/* AdminDashboard.css */
+.dashboard-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+.dashboard-sidebar {
+    width: 240px;
+    background-color: #343a40;
+    color: #ffffff;
+    padding: 20px;
+}
+
+.dashboard-sidebar h2 {
+    margin: 0 0 20px;
+}
+
+.dashboard-sidebar nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.dashboard-sidebar nav ul li {
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.dashboard-sidebar nav ul li:hover {
+    text-decoration: underline;
+}
+
+.dashboard-content {
+    flex-grow: 1;
+    padding: 20px;
+}
+
+.dashboard-content h3 {
+    margin-top: 0;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    text-align: left;
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+button {
+    margin-right: 10px;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagination button {
+    margin: 0 5px;
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    background-color: #f8f9fa;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+/* Style for Previous and Next buttons */
+.pagination button.prev,
+.pagination button.next {
+    background-color: #17a2b8;
+    /* Bootstrap info color */
+    color: white;
+}
+
+/* Style for page number buttons */
+.pagination button.page-number {
+    background-color: #007bff;
+    /* Bootstrap primary color */
+    color: white;
+}
+
+/* Style for the current page button */
+.pagination button.current-page {
+    background-color: #28a745;
+    /* Bootstrap success color */
+    color: white;
+    font-weight: bold;
+}
+
+.pagination button[disabled] {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.pagination button:not([disabled]):hover {
+    background-color: #0056b3;
+    color: white;
+}

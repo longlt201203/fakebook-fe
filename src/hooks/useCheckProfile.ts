@@ -3,13 +3,22 @@ import { AccountResponseDto } from "../dto/accounts/responses/account-response.d
 import { AuthService } from "../services/auth.service";
 import { useEffect, useState } from "react";
 import { AxiosError } from "axios";
+import { Role } from "../utils/Role";
 
 export interface CheckProfileOptions {
-    reverse?: boolean;
-    redirect?: string;
+    reverse: boolean;
+    redirect: string;
+    noRedirect: boolean;
+    roles?: Role[];
 }
 
-export const useCheckProfile = (otps?: CheckProfileOptions): [AccountResponseDto, React.Dispatch<React.SetStateAction<AccountResponseDto>>, string] => {
+const defaultOtps: CheckProfileOptions = {
+    reverse: false,
+    redirect: "/",
+    noRedirect: false
+}
+
+export const useCheckProfile = (otps?: Partial<CheckProfileOptions>): [AccountResponseDto, React.Dispatch<React.SetStateAction<AccountResponseDto>>, string] => {
     const accessToken = window.localStorage.getItem("accessToken");
     const navigate = useNavigate();
     const authService = AuthService.getInstance();
@@ -17,19 +26,22 @@ export const useCheckProfile = (otps?: CheckProfileOptions): [AccountResponseDto
     const [userData, setUserData] = useState<AccountResponseDto>({
         id: "",
         username: "",
-        password: "",
-        detail: undefined
+        role: Role.USER,
+        detail: null
     });
 
     useEffect(() => {
         if (!accessToken) {
-            if (!otps?.reverse) {
-                navigate("/");
+            if (!otps?.reverse && !otps?.noRedirect) {
+                navigate(otps?.redirect || defaultOtps.redirect);
             }
         } else {
             authService.profile(accessToken)
                 .then((data) => {
                     setUserData(data);
+                    if ((otps?.reverse || (otps?.roles && !otps.roles.includes(data.role))) && !otps?.noRedirect) {
+                        navigate(otps?.redirect || defaultOtps.redirect);
+                    }
                 })
                 .catch((err) => {
                     if (!otps?.reverse) {
@@ -39,8 +51,9 @@ export const useCheckProfile = (otps?: CheckProfileOptions): [AccountResponseDto
                         } else {
                             console.log(err);
                         }
-                        alert(message);
-                        navigate('/');
+                        console.log(message);
+                        // alert(message);
+                        if (!otps?.noRedirect) navigate(otps?.redirect || defaultOtps.redirect);
                     }
                 })
         }
