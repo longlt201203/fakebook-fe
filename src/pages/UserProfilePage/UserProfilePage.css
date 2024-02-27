@@ -70,3 +70,8 @@ button:hover {
     color: #ff3860;
     font-size: 0.875em;
 }
+
+.success-message {
+    color: #28a745;
+    font-size: 0.875em;
+}

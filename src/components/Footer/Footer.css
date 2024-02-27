@@ -1,0 +1,19 @@
+/* Footer.css */
+.site-footer {
+    background-color: #f8f9fa;
+    color: #6c757d;
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 40px;
+    /* Adjust based on your content */
+    border-top: 1px solid #e7e7e7;
+}
+
+.container {
+    width: 80%;
+    max-width: 1140px;
+    /* Adjust based on your design */
+    margin: auto;
+}
+
+/* Add styles for additional elements as needed */

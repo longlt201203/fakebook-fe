@@ -1,0 +1,160 @@
+[
+    {
+        "title": "auth",
+        "endpoints": [
+            {
+                "status": "",
+                "title": "Login with Username and Password",
+                "description": "",
+                "path": "/auth/login-with-username-and-password",
+                "method": "POST",
+                "contentType": "application/json",
+                "requestBodyExample": {
+                    "username": "string",
+                    "password": "string"
+                },
+                "responseBodyExample": {
+                    "accessToken": "user access token"
+                },
+                "requestHeadersExample": null
+            },
+            {
+                "status": "NEW",
+                "title": "Login with Google",
+                "description": "",
+                "path": "/auth/login-with-google",
+                "method": "GET",
+                "contentType": "",
+                "requestBodyExample": null,
+                "responseBodyExample": {
+                    "accessToken": "user access token"
+                },
+                "requestHeadersExample": null,
+                "requestQueryExample": {
+                    "credential": "google id token"
+                }
+            },
+            {
+                "status": "MODIFIED",
+                "title": "Profile",
+                "description": "Get profile of the user",
+                "path": "/auth/profile",
+                "method": "GET",
+                "contentType": "",
+                "requestBodyExample": null,
+                "responseBodyExample": {
+                    "id": "User UUID",
+                    "username": "abcxyz",
+                    "detail": {
+                        "lname": "string",
+                        "fname": "string",
+                        "age": 0,
+                        "email": "string"
+                    }
+                },
+                "requestHeadersExample": {
+                    "Authorization": "Bearer <access token>"
+                }
+            }
+        ]
+    },
+    {
+        "title": "accounts",
+        "endpoints": [
+            {
+                "status": "MODIFIED",
+                "title": "Create Account",
+                "description": "",
+                "path": "/accounts/",
+                "method": "POST",
+                "contentType": "application/json",
+                "requestBodyExample": {
+                    "username": "abcxyz",
+                    "password": "password",
+                    "detail": {
+                        "lname": "string",
+                        "fname": "string",
+                        "age": 0,
+                        "email": "string"
+                    }
+                },
+                "responseBodyExample": {
+                    "id": "User UUID",
+                    "username": "abcxyz",
+                    "detail": {
+                        "lname": "string",
+                        "fname": "string",
+                        "age": 0,
+                        "email": "string"
+                    }
+                },
+                "requestHeadersExample": null
+            },
+            {
+                "status": "NEW",
+                "title": "Update Account Detail",
+                "description": "Change the detail of the resource owner",
+                "path": "/accounts/detail",
+                "method": "PUT",
+                "contentType": "application/json",
+                "requestBodyExample": {
+                    "lname": "string",
+                    "fname": "string",
+                    "age": 0,
+                    "email": "string"
+                },
+                "responseBodyExample": {
+                    "id": "User UUID",
+                    "username": "abcxyz",
+                    "detail": {
+                        "lname": "string",
+                        "fname": "string",
+                        "age": 0,
+                        "email": "string"
+                    }
+                },
+                "requestHeadersExample": null,
+                "allowedRoles": [
+                    "admin",
+                    "user"
+                ]
+            },
+            {
+                "status": "NEW",
+                "title": "Get all account",
+                "description": "",
+                "path": "/accounts/",
+                "method": "GET",
+                "contentType": "",
+                "requestBodyExample": null,
+                "responseBodyExample": {
+                    "page": 1,
+                    "take": 10,
+                    "data": [
+                        {
+                            "id": "User UUID",
+                            "username": "abcxyz",
+                            "detail": {
+                                "lname": "string",
+                                "fname": "string",
+                                "age": 0,
+                                "email": "string"
+                            }
+                        }
+                    ],
+                    "totalRecord": 11,
+                    "totalPage": 2,
+                    "nextPage": 2
+                },
+                "requestHeadersExample": null,
+                "requestQueryExample": {
+                    "page": 1,
+                    "take": 10
+                },
+                "allowedRoles": [
+                    "admin"
+                ]
+            }
+        ]
+    }
+]

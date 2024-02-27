@@ -1,0 +1,59 @@
+/* Header.css */
+.fakebook-header {
+    background-color: #3b5998;
+    /* Fakebook's iconic blue color */
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    height: 50px;
+    /* Adjust the height as needed */
+}
+
+.fakebook-header .logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.fakebook-header .logo-container img {
+    height: 30px;
+    /* Adjust based on your logo's size */
+}
+
+.fakebook-header .logo-container .logo-text {
+    margin-left: 10px;
+    font-size: 24px;
+    /* Adjust the size as needed */
+}
+
+.fakebook-header .profile-logout-section,
+.fakebook-header .login-link-section {
+    display: flex;
+    align-items: center;
+}
+
+.fakebook-header .profile-logout-section .username,
+.fakebook-header .login-link-section a {
+    margin-right: 10px;
+    font-size: 16px;
+    /* Adjust the size as needed */
+}
+
+.fakebook-header .profile-logout-section button,
+.fakebook-header .login-link-section a {
+    padding: 8px 16px;
+    background-color: #ffffff;
+    color: #3b5998;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    text-decoration: none;
+    /* Removes underline from links */
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.fakebook-header .profile-logout-section button:hover,
+.fakebook-header .login-link-section a:hover {
+    background-color: #e2e6ea;
+}
