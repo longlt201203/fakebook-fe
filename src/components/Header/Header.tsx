@@ -17,13 +17,13 @@ const Header = () => {
     return (
         <header className="fakebook-header">
             <div className="logo-container">
-                <img src="/path-to-your-logo.png" alt="Fakebook Logo" />
+                <img src="/src/assets/favicon.webp" alt="Fakebook Logo" />
                 <span className="logo-text">Fakebook</span>
             </div>
             {
                 profile.id ? (
                     <div className="profile-logout-section">
-                        <span className="username">{profile.username}</span>
+                        <Link to="/profile"><span className="username">@{profile.username}</span></Link>
                         <button onClick={handleLogout}>Logout</button>
                     </div>
                 ) : (

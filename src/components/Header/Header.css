@@ -40,6 +40,10 @@
     /* Adjust the size as needed */
 }
 
+.fakebook-header .profile-logout-section a {
+    color: white;
+}
+
 .fakebook-header .profile-logout-section button,
 .fakebook-header .login-link-section a {
     padding: 8px 16px;

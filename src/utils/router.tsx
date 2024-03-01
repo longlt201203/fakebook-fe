@@ -4,6 +4,7 @@ import RegistrationPage from "../pages/RegistrationPage/RegistrationPage";
 import UserProfilePage from "../pages/UserProfilePage/UserProfilePage";
 import { RequestApisPage } from "../pages/RequestApisPage/RequestApisPage";
 import AdminDashboard from "../pages/AdminDashboard/AdminDashboard";
+import Newsfeed from "../pages/Newsfeed/Newsfeed";
 
 export const router = createBrowserRouter([
     {
@@ -17,6 +18,10 @@ export const router = createBrowserRouter([
     {
         path: '/profile',
         element: <UserProfilePage/>
+    },
+    {
+        path: '/feed',
+        element: <Newsfeed/>
     },
     {
         path: '/apis',

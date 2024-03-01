@@ -3,4 +3,5 @@ export interface AccountDetailDto {
     fname: string;
     lname: string;
     age: number;
+    avt: string | null;
 }

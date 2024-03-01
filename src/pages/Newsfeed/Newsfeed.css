@@ -1,0 +1,112 @@
+/* Newsfeed.css */
+.newsfeed {
+    max-width: 600px;
+    margin: auto;
+}
+
+.post {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    padding: 15px;
+}
+
+.post-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.profile-picture {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.author-name {
+    font-weight: bold;
+}
+
+.post-timestamp {
+    color: #777;
+    font-size: 0.85em;
+}
+
+.post-content {
+    margin-bottom: 15px;
+}
+
+.post-actions span {
+    margin-right: 10px;
+    font-size: 0.85em;
+    color: #555;
+    cursor: pointer;
+}
+
+/* Add additional styling as needed */
+
+.post-form {
+    margin-bottom: 20px;
+}
+
+.post-input {
+    display: none;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    resize: vertical;
+    /* Allows the user to resize the textarea vertically */
+}
+
+.post-submit {
+    background-color: #4CAF50;
+    /* A pleasant green */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.post-submit:hover {
+    background-color: #45a049;
+    /* A darker shade for the hover state */
+}
+
+.comment-section {
+    margin-top: 10px;
+    border-top: 1px solid #eee;
+    padding-top: 10px;
+}
+
+.comment {
+    margin-bottom: 5px;
+}
+
+.comment-form {
+    display: flex;
+    margin-top: 10px;
+}
+
+.comment-form input {
+    flex-grow: 1;
+    margin-right: 5px;
+}
+
+.comment-form button {
+    border: none;
+    background-color: #007bff;
+    color: white;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.comment button {
+    margin-left: 10px;
+    padding: 2px 6px;
+    font-size: 0.8rem;
+}
