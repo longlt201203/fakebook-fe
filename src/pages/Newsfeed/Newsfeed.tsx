@@ -1,3 +1,4 @@
+// Newfeed.tsx
 import { FormEvent, useState } from 'react';
 import { MainLayout } from '../../layouts/MainLayout';
 import './Newsfeed.css'; // Make sure to create and import your CSS file
@@ -15,6 +16,7 @@ const posts = [
         timestamp: new Date().toISOString(),
         content: "This is the content of the first post.",
         likes: 10,
+        isEditing: false,
         comments: [
             { id: 1, author: "John Smith", content: "Great post!", isEditing: false },
             { id: 2, author: "Emily Johnson", content: "Thanks for sharing.", isEditing: false },
@@ -25,8 +27,7 @@ const posts = [
 
 const Newsfeed = () => {
     // Replace with actual fetching logic
-    const newsfeedPosts = posts; // Assuming 'posts' is your mock data or fetched data
-
+    const [newsfeedPosts, setNewsfeedPosts] = useState(posts);
     const [postContent, setPostContent] = useState<string | undefined>('');
 
     const handlePostSubmit = (e: FormEvent) => {
@@ -46,6 +47,24 @@ const Newsfeed = () => {
         // Logic to update the comment content in the state and optionally update the backend
         console.log(`Editing comment ${commentId} from post ${postId} with new content: ${updatedContent}`);
         // Update your state here
+    };
+
+    const handlePostEditToggle = (postId) => {
+        setNewsfeedPosts(currentPosts =>
+            currentPosts.map(post =>
+                post.id === postId ? { ...post, isEditing: !post.isEditing } : post
+            )
+        );
+    };
+
+    const handlePostUpdate = (postId, updatedContent) => {
+        console.log(`Updating post ${postId} with new content: ${updatedContent}`);
+        // Here you would add logic to send the updated post content to your backend
+        setNewsfeedPosts(currentPosts =>
+            currentPosts.map(post =>
+                post.id === postId ? { ...post, content: updatedContent, isEditing: false } : post
+            )
+        );
     };
 
 
@@ -73,12 +92,28 @@ const Newsfeed = () => {
                             <div>
                                 <div className="author-name">{post.author.name}</div>
                                 <div className="post-timestamp">{new Date(post.timestamp).toLocaleString()}</div>
+                                {post.isEditing ? (
+                                    <button onClick={() => handlePostEditToggle(post.id)}>Cancel</button>
+                                ) : (
+                                    <button onClick={() => handlePostEditToggle(post.id)}>Edit</button>
+                                )}
                             </div>
                         </div>
                         <hr />
-                        <div className="post-content">
-                            <MDEditor.Markdown source={post.content} />
-                        </div>
+                        {post.isEditing ? (
+                            <div className="post-content-edit">
+                                <MDEditor
+                                    value={post.content}
+                                    onChange={(updatedContent) => handlePostUpdate(post.id, updatedContent)}
+                                />
+                                <button onClick={() => handlePostUpdate(post.id, post.content)}>Update</button>
+                                <button onClick={() => handlePostEditToggle(post.id)}>Cancel</button>
+                            </div>
+                        ) : (
+                            <div className="post-content">
+                                <MDEditor.Markdown source={post.content} />
+                            </div>
+                        )}
                         <div className="post-actions">
                             <span>{post.likes} Likes</span>
                             <span>{post.comments.length} Comments</span>

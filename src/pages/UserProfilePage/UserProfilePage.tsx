@@ -50,7 +50,7 @@ const UserProfilePage: React.FC = () => {
         url = data.url;
       }
       accountsService
-        .updateAccountDetail(userData.id, { ...detail, avt: url }, accessToken)
+        .updateAccountDetail({ ...detail, avt: url }, accessToken)
         .then((data) => {
           setUserData(data);
           setSuccessMessage('Update profile successfully!');
@@ -87,7 +87,7 @@ const UserProfilePage: React.FC = () => {
     <MainLayout>
       <div className="user-profile">
         <div className="profile-avatar-container">
-          <img src={detail.avt || 'default-avatar-url.jpg'} alt="Profile Avatar" className="profile-avatar" />
+          <img src={detail.avt || 'https://via.placeholder.com/300'} alt="Profile Avatar" className="profile-avatar" />
           {/* Additional profile info here */}
         </div>
         <div className="profile-header">
