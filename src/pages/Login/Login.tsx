@@ -63,7 +63,7 @@ const Login: React.FC = () => {
     <MainLayout>
       <div className="login-container">
         <form className="login-form" onSubmit={handleSubmit}>
-          <img src="logo.png" alt="Fakebook Logo" className="logo" />
+          {/* <img src="/src/assets/favicon.webp" alt="Fakebook Logo" className="logo" /> */}
           {errorMessage && <div className="error-message" style={{ color: 'red' }}>{errorMessage}</div>}
           <input
             type="text"

@@ -23,7 +23,7 @@ const UserProfilePage: React.FC = () => {
     email: '',
     fname: '',
     lname: '',
-    avt: null
+    avt: ''
   });
 
   useEffect(() => {
@@ -44,7 +44,7 @@ const UserProfilePage: React.FC = () => {
     e.preventDefault();
 
     if (isUpdated && validateDetail()) {
-      let url = null;
+      let url = detail.avt;
       if (avtFile) {
         const data = await localFilesService.upload(avtFile);
         url = data.url;
