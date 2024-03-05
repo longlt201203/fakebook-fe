@@ -6,10 +6,12 @@ import { AccountsService } from '../../services/accounts.service';
 import { AxiosError } from 'axios';
 import { MainLayout } from '../../layouts/MainLayout';
 import { LocalFilesService } from '../../services/local-files.service';
+import { Link } from 'react-router-dom';
 
 const UserProfilePage: React.FC = () => {
   let [isUpdated, setIsUpdated] = useState(false);
   let [avtFile, setAvtFile] = useState<File | null>(null);
+
   const [userData, setUserData, accessToken] = useCheckProfile();
 
   const accountsService = AccountsService.getInstance();
@@ -94,13 +96,14 @@ const UserProfilePage: React.FC = () => {
           <h2>{`${userData.detail?.lname} ${userData.detail?.fname}`}</h2>
           <p>Email: {userData.detail?.email}</p>
           <p>Age: {userData.detail?.age}</p>
+          <Link to={`/user/${userData.id}`}>View Public Profile</Link>
         </div>
         <form className="profile-update-form" onSubmit={handleSubmit}>
           <h3>Update Profile</h3>
           {successMessage && <div className="success-message">{successMessage}</div>}
           {generalError && <div className="error-message">{generalError}</div>}
           <div>
-            <label htmlFor=""></label>
+            <label htmlFor="">Avatar</label>
             <input type="file" accept="image/*" onChange={handleAvatarChange} />
           </div>
           <div>

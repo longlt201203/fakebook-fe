@@ -1,3 +1,3 @@
 export class Globals {
-    static readonly API_BASE_URL = "http://localhost:3000";
+    static readonly DEFAULT_IMAGE = "https://via.placeholder.com/300";
 }

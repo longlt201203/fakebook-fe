@@ -1,5 +1,6 @@
 // CommentSection.js or CommentSection.tsx
 import { useState } from 'react';
+import "./CommentSection.css";
 
 export const CommentSection = ({ postId, comments, onCommentSubmit, onCommentDelete, onCommentEdit }) => {
     const [newComment, setNewComment] = useState('');

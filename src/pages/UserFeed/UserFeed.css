@@ -1,0 +1,44 @@
+.user-feed {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    background-color: #f0f2f5;
+}
+
+.post-creation textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccd0d5;
+    border-radius: 8px;
+    resize: vertical;
+}
+
+.post-creation button {
+    background-color: #4267b2;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.posts-list {
+    margin-top: 20px;
+}
+
+/* The Post component will have its own styles, 
+     but you may need to add margins if not already present */
+/* .post-item+.post-item {
+    margin-top: 10px;
+} */
+
+.user-feed-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    background-color: #f0f2f5;
+}

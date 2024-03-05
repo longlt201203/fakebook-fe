@@ -27,7 +27,7 @@ export const useCheckProfile = (otps?: Partial<CheckProfileOptions>): [AccountRe
         id: "",
         username: "",
         role: Role.USER,
-        detail: null
+        detail: undefined
     });
 
     useEffect(() => {

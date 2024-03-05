@@ -11,6 +11,7 @@ import { CreatePostDto } from "../dto/posts/requests/create-post.dto";
 export class PostsService {
     private static readonly BASE_PATH = "/posts";
     private static readonly FETCH_POSTS_ENDPOINT = "/";
+    private static readonly FETCH_POSTS_BY_AUTHOR_ENDPOINT = "/fetch-by-account-id";
     private static readonly UPDATE_POST_ENDPOINT = "/";
     private static readonly CREATE_POST_ENDPOINT = "/";
     
@@ -27,9 +28,21 @@ export class PostsService {
 
     async fetchPosts(filter: PostFilterDto, accessToken: string) {
         const searchParams = createSearchParams();
-        searchParams.set("take", filter.take.toString())
+        searchParams.set("take", filter.take.toString());
         searchParams.set("page", filter.page.toString());
         const data = await this.axiosService.get<PaginationDto<PostResponseDto>>(PostsService.FETCH_POSTS_ENDPOINT+"?"+searchParams.toString(), {
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            }
+        });
+        return data;
+    }
+
+    async fetchPostsByAuthor(authorId: string, filter: PostFilterDto, accessToken: string) {
+        const searchParams = createSearchParams();
+        searchParams.set("take", filter.take.toString());
+        searchParams.set("page", filter.page.toString());
+        const data = await this.axiosService.get<PaginationDto<PostResponseDto>>(PostsService.FETCH_POSTS_BY_AUTHOR_ENDPOINT+ "/" + authorId + "?" + searchParams.toString(), {
             headers: {
                 Authorization: `Bearer ${accessToken}`
             }

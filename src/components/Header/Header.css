@@ -1,14 +1,34 @@
 /* Header.css */
 .fakebook-header {
     background-color: #3b5998;
-    /* Fakebook's iconic blue color */
     color: white;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 20px;
     height: 50px;
-    /* Adjust the height as needed */
+}
+
+.logo-navbar-container {
+    display: flex;
+    align-items: center;
+}
+
+.navbar {
+    margin-left: 20px;
+}
+
+.navbar a {
+    color: white;
+    margin: 0 10px;
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+}
+
+.navbar a:hover {
+    background-color: #365899;
 }
 
 .fakebook-header .logo-container {

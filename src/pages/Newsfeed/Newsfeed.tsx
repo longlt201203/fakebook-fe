@@ -9,6 +9,7 @@ import { PostsService } from '../../services/posts.service';
 import { useCheckProfile } from '../../hooks/useCheckProfile';
 import { PaginationDto } from '../../dto/pagination.dto';
 import { AxiosError } from 'axios';
+import FriendRecommendation from '../../components/FriendRecommendation/FriendRecommendation';
 
 const Newsfeed = () => {
     // Replace with actual fetching logic
@@ -55,24 +56,27 @@ const Newsfeed = () => {
 
     return (
         <MainLayout>
-            <div className="newsfeed">
-                <MDEditor
-                    value={postContent}
-                    onChange={setPostContent}
-                    style={{ marginBottom: "20px", marginTop: "20px" }}
-                />
-                <form className="post-form" onSubmit={handlePostSubmit}>
-                    <textarea
-                        className="post-input"
-                        placeholder="What's on your mind?"
+            <div className="app-container">
+                <FriendRecommendation /* pass necessary props */ />
+                <div className="newsfeed">
+                    <MDEditor
                         value={postContent}
-                        onChange={(e) => setPostContent(e.target.value)}
-                    ></textarea>
-                    <button type="submit" className="post-submit">Post</button>
-                </form>
-                {postsData?.data.map((post) => (
-                    <Post key={post.id} post={post} currentUserId={profile.id} accessToken={accessToken} />
-                ))}
+                        onChange={setPostContent}
+                        style={{ marginBottom: "20px", marginTop: "20px" }}
+                    />
+                    <form className="post-form" onSubmit={handlePostSubmit}>
+                        <textarea
+                            className="post-input"
+                            placeholder="What's on your mind?"
+                            value={postContent}
+                            onChange={(e) => setPostContent(e.target.value)}
+                        ></textarea>
+                        <button type="submit" className="post-submit">Post</button>
+                    </form>
+                    {postsData?.data.map((post) => (
+                        <Post key={post.id} post={post} currentUserId={profile.id} accessToken={accessToken} />
+                    ))}
+                </div>
             </div>
         </MainLayout>
     );

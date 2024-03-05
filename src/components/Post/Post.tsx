@@ -4,6 +4,7 @@ import { PostResponseDto } from "../../dto/posts/responses/post-response.dto";
 import "./Post.css";
 import { PostsService } from "../../services/posts.service";
 import { AxiosError } from "axios";
+import { Link } from "react-router-dom";
 
 const Post = (props: PropsWithChildren<{
     post: PostResponseDto,
@@ -48,7 +49,7 @@ const Post = (props: PropsWithChildren<{
             <div className="post-header">
                 <img src={post.author.detail?.avt || ""} alt={`@${post.author.username}'s profile`} className="profile-picture" />
                 <div>
-                    <div className="author-name">@{post.author.username}</div>
+                    <div className="author-name"><Link to={`/user/${post.author.id}`}>@{post.author.username}</Link></div>
                     <div className="post-timestamp">{new Date(post.createdAt).toLocaleString()}</div>
                     {props.currentUserId == post.author.id ? isEditing ? (
                         <button onClick={() => setIsEditing(false)}>Cancel</button>

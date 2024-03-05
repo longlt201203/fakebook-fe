@@ -1,0 +1,42 @@
+.user-feed-profile-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #ffffff;
+    /* Or any color that matches your design */
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* A subtle shadow */
+    width: 100%;
+    /* Or max-width if you want it to be smaller */
+    box-sizing: border-box;
+}
+
+.user-feed-profile-avatar {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.user-feed-avatar-image {
+    width: 120px;
+    /* Adjust the size as needed */
+    height: 120px;
+    border-radius: 50%;
+    border: 3px solid #e7e7e7;
+    /* Light grey border around the avatar */
+    object-fit: cover;
+    /* Ensures the image covers the area properly */
+}
+
+.user-feed-profile-details {
+    text-align: center;
+}
+
+.user-feed-name {
+    font-size: 24px;
+    color: #333333;
+    /* Dark grey color for the text */
+    margin: 0;
+}

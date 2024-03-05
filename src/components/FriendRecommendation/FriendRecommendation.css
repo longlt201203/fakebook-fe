@@ -1,0 +1,45 @@
+.friend-recommendation {
+    width: 250px; /* Adjust the width as needed */
+    margin-left: 20px; /* Add some spacing */
+    padding: 10px;
+    background-color: #f9f9f9; /* Light background for the sidebar */
+    border-radius: 5px; /* Optional: rounded corners */
+}
+
+.friend-avatar img {
+    width: 50px; /* Adjust the size as needed */
+    height: 50px; /* Adjust the size as needed */
+    border-radius: 50%; /* Circular avatars */
+    margin-right: 10px;
+}
+
+/* Update styles for .recommendation-item for the avatar */
+.recommendation-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.friend-recommendation h3 {
+    margin-bottom: 10px;
+}
+
+.recommendation-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.friend-info {
+    margin-right: 10px;
+}
+
+.add-friend-button {
+    border: none;
+    background-color: #007bff;
+    color: white;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 3px; /* Optional: rounded corners for the button */
+}

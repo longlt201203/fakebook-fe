@@ -12,6 +12,7 @@ export class AccountsService {
     private static readonly CREATE_ACCOUNT_ENDPOINT = "/";
     private static readonly UPDATE_ACCOUNT_DETAIL_ENDPOINT = "/detail";
     private static readonly FIND_ALL_ACCOUNT_ENDPOINT = "/";
+    private static readonly FIND_ACCOUNT_BY_ID_ENDPOINT = "/";
 
     private static instance: AccountsService;
     static getInstance() {
@@ -46,6 +47,15 @@ export class AccountsService {
         searchParams.set("take", dto.take.toString())
         searchParams.set("page", dto.page.toString());
         const data = await this.axiosService.get<PaginationDto<AccountResponseDto>>(AccountsService.FIND_ALL_ACCOUNT_ENDPOINT + "?" + searchParams.toString(), {
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            }
+        });
+        return data;
+    }
+
+    async findAccountById(id: string, accessToken: string) {
+        const data = await this.axiosService.get<AccountResponseDto>(AccountsService.FIND_ACCOUNT_BY_ID_ENDPOINT+id, {
             headers: {
                 Authorization: `Bearer ${accessToken}`
             }

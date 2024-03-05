@@ -16,9 +16,17 @@ const Header = () => {
 
     return (
         <header className="fakebook-header">
-            <div className="logo-container">
-                <img src="/src/assets/favicon.webp" alt="Fakebook Logo" />
-                <span className="logo-text">Fakebook</span>
+            <div className="logo-navbar-container">
+                <div className="logo-container">
+                    <img src="/src/assets/favicon.webp" alt="Fakebook Logo" />
+                    <span className="logo-text">Fakebook</span>
+                </div>
+                <nav className="navbar">
+                    <Link to="/feed">Home</Link>
+                    {/* <Link to="/friends">Friends</Link> */}
+                    {/* <Link to="/messages">Messages</Link> */}
+                    {/* Add more links as needed */}
+                </nav>
             </div>
             {
                 profile.id ? (
@@ -32,7 +40,6 @@ const Header = () => {
                     </div>
                 )
             }
-
         </header>
     );
 };

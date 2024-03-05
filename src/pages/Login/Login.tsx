@@ -44,7 +44,7 @@ const Login: React.FC = () => {
       authService.loginWithGoogle(credentialResponse.credential)
         .then((data) => {
           window.localStorage.setItem("accessToken", data.accessToken);
-          navigate('/profile');
+          navigate('/feed');
         })
         .catch(err => {
           if (err instanceof AxiosError) {
