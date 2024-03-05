@@ -1,16 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import './UserProfilePage.css';
 import { useCheckProfile } from '../../hooks/useCheckProfile';
 import { AccountDetailDto } from '../../dto/accounts/account-detail.dto';
 import { AccountsService } from '../../services/accounts.service';
 import { AxiosError } from 'axios';
 import { MainLayout } from '../../layouts/MainLayout';
+import { LocalFilesService } from '../../services/local-files.service';
 
 const UserProfilePage: React.FC = () => {
   let [isUpdated, setIsUpdated] = useState(false);
+  let [avtFile, setAvtFile] = useState<File | null>(null);
   const [userData, setUserData, accessToken] = useCheckProfile();
 
   const accountsService = AccountsService.getInstance();
+  const localFilesService = LocalFilesService.getInstance();
 
   const [successMessage, setSuccessMessage] = useState('');
   const [generalError, setGeneralError] = useState('');
@@ -19,7 +22,8 @@ const UserProfilePage: React.FC = () => {
     age: 0,
     email: '',
     fname: '',
-    lname: ''
+    lname: '',
+    avt: ''
   });
 
   useEffect(() => {
@@ -36,12 +40,17 @@ const UserProfilePage: React.FC = () => {
     return true;
   }
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (isUpdated && validateDetail()) {
+      let url = detail.avt;
+      if (avtFile) {
+        const data = await localFilesService.upload(avtFile);
+        url = data.url;
+      }
       accountsService
-        .updateAccountDetail(userData.id, detail, accessToken)
+        .updateAccountDetail({ ...detail, avt: url }, accessToken)
         .then((data) => {
           setUserData(data);
           setSuccessMessage('Update profile successfully!');
@@ -61,9 +70,26 @@ const UserProfilePage: React.FC = () => {
     }
   }
 
+  const handleAvatarChange = async (event: ChangeEvent<HTMLInputElement>) => {
+    setIsUpdated(true);
+    if (event.target.files && event.target.files.length > 0) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const newAvatarUrl = URL.createObjectURL(file);
+      setAvtFile(file);
+      setDetail({ ...detail, avt: newAvatarUrl });
+    }
+  };
+
+
   return (
     <MainLayout>
       <div className="user-profile">
+        <div className="profile-avatar-container">
+          <img src={detail.avt || 'https://via.placeholder.com/300'} alt="Profile Avatar" className="profile-avatar" />
+          {/* Additional profile info here */}
+        </div>
         <div className="profile-header">
           <h2>{`${userData.detail?.lname} ${userData.detail?.fname}`}</h2>
           <p>Email: {userData.detail?.email}</p>
@@ -73,6 +99,10 @@ const UserProfilePage: React.FC = () => {
           <h3>Update Profile</h3>
           {successMessage && <div className="success-message">{successMessage}</div>}
           {generalError && <div className="error-message">{generalError}</div>}
+          <div>
+            <label htmlFor=""></label>
+            <input type="file" accept="image/*" onChange={handleAvatarChange} />
+          </div>
           <div>
             <label htmlFor="firstName">First Name</label>
             <input type="text" id="firstName" name="fname" value={detail.fname} onChange={handleChangeDetail} />

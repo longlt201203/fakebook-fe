@@ -75,3 +75,19 @@ button:hover {
     color: #28a745;
     font-size: 0.875em;
 }
+
+.profile-avatar-container {
+    /* Container might include some styling to position the avatar image */
+    text-align: center;
+}
+
+.profile-avatar {
+    width: 100px;
+    /* Adjust as needed */
+    height: 100px;
+    /* Adjust as needed */
+    border-radius: 50%;
+    /* Creates a circular shape */
+    object-fit: cover;
+    /* Ensures the image covers the area nicely */
+}

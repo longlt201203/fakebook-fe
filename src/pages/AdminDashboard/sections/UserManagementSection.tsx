@@ -29,7 +29,7 @@ export const UserManagementSection = (props: PropsWithChildren<{
     }, [currentPage]);
 
     // Handlers to change page
-    const goToNextPage = () => setCurrentPage((page) => Math.min(page + 1, usersData?.totalPage ?? 0));
+    const goToNextPage = () => setCurrentPage((page) => Math.min(page + 1, usersData?.totalPage || 0));
     const goToPreviousPage = () => setCurrentPage((page) => Math.max(page - 1, 1));
     const goToPage = (page: number) => setCurrentPage(page);
 
@@ -63,7 +63,7 @@ export const UserManagementSection = (props: PropsWithChildren<{
             </table>
             <div className="pagination">
                 <button onClick={goToPreviousPage} disabled={currentPage === 1} className="prev">Prev</button>
-                {Array.from({ length: usersData?.totalPage ?? 0 }, (_, index) => (
+                {Array.from({ length: usersData?.totalPage || 0 }, (_, index) => (
                     <button
                         key={index}
                         onClick={() => goToPage(index + 1)}
@@ -73,7 +73,7 @@ export const UserManagementSection = (props: PropsWithChildren<{
                         {index + 1}
                     </button>
                 ))}
-                <button onClick={goToNextPage} disabled={currentPage === usersData?.totalPage ?? 0} className="next">Next</button>
+                <button onClick={goToNextPage} disabled={currentPage === (usersData?.totalPage || 0)} className="next">Next</button>
             </div>
         </div>
     );

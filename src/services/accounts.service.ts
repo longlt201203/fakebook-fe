@@ -32,7 +32,7 @@ export class AccountsService {
         return data;
     }
 
-    async updateAccountDetail(id: string, dto: AccountDetailDto, accessToken: string) {
+    async updateAccountDetail(dto: AccountDetailDto, accessToken: string) {
         const data = await this.axiosService.put<AccountResponseDto>(AccountsService.UPDATE_ACCOUNT_DETAIL_ENDPOINT, dto, {
             headers: {
                 Authorization: `Bearer ${accessToken}`
