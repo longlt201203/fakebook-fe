@@ -1,28 +1,43 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, PropsWithChildren } from 'react';
 import { Link } from 'react-router-dom';
 import { Globals } from '../../utils/Globals';
 import "./FriendRecommendation.css"
+import { AccountResponseDto } from '../../dto/accounts/responses/account-response.dto';
+import { AnalyticsService } from '../../services/analytics.service';
+import { RelationshipsService } from '../../services/relationships.service';
 
-// A mock function to simulate fetching data from an API.
-const fetchFriendRecommendations = () => {
-    // This would be replaced with an actual API call.
-    // Note that 'avatarUrl' is added to each friend object.
-    return Promise.resolve([
-        { id: 1, name: "Alice Smith", mutualFriends: 4, avatarUrl: Globals.DEFAULT_IMAGE },
-        { id: 2, name: "Bob Jones", mutualFriends: 3, avatarUrl: Globals.DEFAULT_IMAGE },
-        { id: 3, name: "Charlie Johnson", mutualFriends: 2, avatarUrl: Globals.DEFAULT_IMAGE },
-        // Add more mock friends with their avatars
-    ]);
-};
+const FriendRecommendation = (props: PropsWithChildren<{
+    accountId: string,
+    accessToken: string
+}>) => {
+    const analyticsService = AnalyticsService.getInstance();
+    const relationshipsService = RelationshipsService.getInstance();
+    const [recommendations, setRecommendations] = useState<AccountResponseDto[]>([]);
 
-const FriendRecommendation = () => {
-    const [recommendations, setRecommendations] = useState([]);
+    const fecthFriendRecommendations = () => {
+        analyticsService
+            .getFriendRecommendations(props.accountId)
+            .then(data => setRecommendations(data))
+            .catch(err => {});
+    }
 
     useEffect(() => {
-        fetchFriendRecommendations().then(data => {
-            setRecommendations(data);
-        });
-    }, []);
+        if (props.accountId) {
+            fecthFriendRecommendations();
+        }
+    }, [props.accountId]);
+
+    const handleAddFriend = (friendId: string) => {
+        // fecthFriendRecommendations();
+        relationshipsService
+            .addFriend(friendId, props.accessToken)
+            .then(data => {
+                fecthFriendRecommendations();
+            })
+            .catch(err => {
+
+            });
+    }
 
     return (
         <div className="friend-recommendation">
@@ -31,12 +46,12 @@ const FriendRecommendation = () => {
                 {recommendations.map(friend => (
                     <li key={friend.id} className="recommendation-item">
                         <div className="friend-avatar">
-                            <img src={friend.avatarUrl} alt={`${friend.name}'s avatar`} />
+                            <img src={friend.detail?.avt || Globals.DEFAULT_IMAGE} alt={`${friend.detail?.fname}'s avatar`} />
                         </div>
                         <div className="friend-info">
-                            <div className="friend-name"><Link to="/feed">{friend.name}</Link></div>
+                            <div className="friend-name"><Link to={`/user/${friend.id}`}>{friend.detail?.fname} {friend.detail?.lname}</Link></div>
                         </div>
-                        <button className="add-friend-button">Add Friend</button>
+                        <button className="add-friend-button" onClick={() => handleAddFriend(friend.id)}>Add Friend</button>
                     </li>
                 ))}
             </ul>

@@ -93,6 +93,7 @@ const UserFeed = () => {
                         {postsData?.data.map(post => (
                             <Post key={post.id} post={post} currentUserId={profile.id} accessToken={accessToken} />
                         ))}
+                        <button type='button'>More</button>
                     </div>
                 </div>
             </div>

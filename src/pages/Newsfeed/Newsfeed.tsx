@@ -16,15 +16,27 @@ const Newsfeed = () => {
     const [profile, setProfile, accessToken] = useCheckProfile();
     const postsService = PostsService.getInstance();
 
-    const [postsData, setPostsData] = useState<PaginationDto<PostResponseDto>>();
-    // const [newsfeedPosts, setNewsfeedPosts] = useState(posts);
+    const [newsfeedPosts, setNewsfeedPosts] = useState<PostResponseDto[]>([]);
+    const [currentPage, setCurrentPage] = useState(0);
+    const [nextPage, setNextPage] = useState<number | undefined>();
     const [postContent, setPostContent] = useState<string | undefined>('');
 
-    const fetchPost = () => {
+    const fetchPost = (page: number) => {
         postsService
-            .fetchPosts({ page: 1, take: 10 }, accessToken)
+            .fetchPosts({ page: page, take: 10 }, accessToken)
             .then((data) => {
-                setPostsData(data);
+                if (data.page != currentPage) {
+                    const tmp = [];
+                    tmp.push(...newsfeedPosts);
+                    tmp.push(...data.data);
+                    setNewsfeedPosts(tmp);
+                    setCurrentPage(data.page);
+                }
+                if (data.nextPage) {
+                    setNextPage(data.nextPage);
+                } else {
+                    setNextPage(undefined);
+                }
             })
             .catch((err) => {
                 console.log(err);
@@ -32,7 +44,7 @@ const Newsfeed = () => {
     }
 
     useEffect(() => {
-        fetchPost();
+        fetchPost(1);
     }, []);
 
     const handlePostSubmit = (e: FormEvent) => {
@@ -40,7 +52,8 @@ const Newsfeed = () => {
         // Here you would add logic to send the post content to your backend
         postsService.createPost({ content: postContent ?? "" }, accessToken)
             .then(data => {
-                fetchPost();
+                // fetchPost(1);
+                alert("Post successfully!")
             })
             .catch(err => {
                 if (err instanceof AxiosError) {
@@ -54,10 +67,14 @@ const Newsfeed = () => {
         setPostContent('');
     };
 
+    const handleMore = () => {
+        fetchPost(nextPage ?? currentPage);
+    }
+
     return (
         <MainLayout>
             <div className="app-container">
-                <FriendRecommendation /* pass necessary props */ />
+                <FriendRecommendation accountId={profile.id} accessToken={accessToken} /* pass necessary props */ />
                 <div className="newsfeed">
                     <MDEditor
                         value={postContent}
@@ -73,9 +90,10 @@ const Newsfeed = () => {
                         ></textarea>
                         <button type="submit" className="post-submit">Post</button>
                     </form>
-                    {postsData?.data.map((post) => (
+                    {newsfeedPosts.map((post) => (
                         <Post key={post.id} post={post} currentUserId={profile.id} accessToken={accessToken} />
                     ))}
+                    {nextPage ? (<button type='button' onClick={() => handleMore()}>More</button>) : ''}
                 </div>
             </div>
         </MainLayout>
