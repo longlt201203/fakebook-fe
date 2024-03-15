@@ -6,6 +6,7 @@ import { RequestApisPage } from "../pages/RequestApisPage/RequestApisPage";
 import AdminDashboard from "../pages/AdminDashboard/AdminDashboard";
 import Newsfeed from "../pages/Newsfeed/Newsfeed";
 import UserFeed from "../pages/UserFeed/UserFeed";
+import SearchPage from "../pages/SearchPage/SearchPage";
 
 export const router = createBrowserRouter([
     {
@@ -35,5 +36,9 @@ export const router = createBrowserRouter([
     {
         path: "/user/:accountId",
         element: <UserFeed/>
+    },
+    {
+        path: "/search",
+        element: <SearchPage/>
     }
 ]);

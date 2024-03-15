@@ -1,0 +1,47 @@
+.search-page {
+    padding: 20px;
+}
+
+.search-page h1 {
+    margin-bottom: 20px;
+}
+
+.friend-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.friend-list li {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.friend-info {
+    flex: 1;
+    margin-right: 10px;
+}
+
+.friend-info img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.friend-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.friend-details h2 {
+    margin-bottom: 5px;
+}
+
+.add-friend-button {
+    padding: 8px 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+}

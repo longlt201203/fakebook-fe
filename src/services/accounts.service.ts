@@ -46,6 +46,9 @@ export class AccountsService {
         const searchParams = createSearchParams();
         searchParams.set("take", dto.take.toString())
         searchParams.set("page", dto.page.toString());
+        if (dto.search) {
+            searchParams.set("search", dto.search);
+        }
         const data = await this.axiosService.get<PaginationDto<AccountResponseDto>>(AccountsService.FIND_ALL_ACCOUNT_ENDPOINT + "?" + searchParams.toString(), {
             headers: {
                 Authorization: `Bearer ${accessToken}`

@@ -1,3 +1,5 @@
 import { BaseFilterDto } from "../../base-filter.dto";
 
-export interface AccountFilterDto extends BaseFilterDto {}
+export interface AccountFilterDto extends BaseFilterDto {
+    search?: string;
+}
